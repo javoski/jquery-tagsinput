@@ -1,0 +1,44 @@
+/**
+ * @author xujiongbo
+ * @description Styles for jQuery Tags Input Plugin
+ * Date: 2015-08-03
+ */
+.tags-input{
+    display: inline-block;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+.tag-input-item{
+    display: inline-block;
+    background-color: #2ecdba;
+    padding: 3px 4px;
+    border-radius: 3px;
+    color: #fff;
+    height: 26px;
+    margin-left: 10px;
+    margin-top: 7px;
+    line-height: 26px;
+    padding: 0 4px;
+}
+.tag-input-item .tag-input-remove:after{
+    display: inline-block;
+    content: "x";
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    text-align: center;
+}
+.tags-input input[type="text"].tags-input-add{
+    width: 100px;
+    border: none;
+    margin-left: 0;
+}
+.tags-input input[type="text"].tags-input-add:focus{
+    border: none;
+    box-shadow: none;
+}
+#tagNames{
+    display: none;
+}
