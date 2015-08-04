@@ -5,62 +5,78 @@
  */
 (function($) {
     $.fn.tagsinput = function(opts) {
-        this.each(function(item){
-            init.call(item, opts);
+        this.each(function(){
+            init.call(this, opts);
         });
     };
-    function init(input, opts) {
-        var obj = {tagList:[]},
-            $tagsInput = $('<div class="tags-input"></div>'),
-            $tagsInputAdd = $('<input type="text" class="tags-input-add">'),
+    var keyCodeReflect = {
+        13: 'enter',
+        9: 'tab',
+        32: 'space'
+    };
+    function init(opts) {
+        var $input = $(this),
+            tagList = [],
+            $tagsInput = $('<div class="xjb-tags-input"></div>'),
+            $tagsInputAdd = $('<input type="text" class="xjb-tags-input-add">'),
             options = $.extend({
-                
+                tagKeys: ['enter', 'tab', 'space'],
+                keyDeletion: false
             }, opts);
 
         //add tag by name
-        obj.add = function(tagName){
-            this.tagList.push(tagName);
-            $input.val(this.tagList.join(','));
-            var $tagItem = $('<span class="tag-input-item">'+tagName+'<span class="tag-input-remove"></span></span>');
-            $tagItem.find('.tag-input-remove').click(function(){
-                obj.remove($tagItem);
+        var add = function(tagName){
+            tagList.push(tagName);
+            $input.val(tagList.join(','));
+            var $tagItem = $('<span class="xjb-tag-input-item">'+tagName+'<span class="xjb-tag-input-remove"></span></span>');
+            $tagItem.find('.xjb-tag-input-remove').click(function(){
+                remove($tagItem);
             });
             $tagsInputAdd.before($tagItem);
         };
         //add tags by string
-        obj.addList = function(tagNames){
+        var addList = function(tagNames){
             var list = tagNames.split(',');
             for(var i=0;i<list.length;i++){
-                this.add(list[i]);
+                add(list[i]);
             }
         };
         //remove tag by jquery object
-        obj.remove = function($item){
+        var remove = function($item){
             var tag = $item.text();
-            this.tagList.splice(obj.tagList.indexOf(tag), 1);
+            tagList.splice(tagList.indexOf(tag), 1);
             $item.remove();
-            $input.val(obj.tagList.join(','));
+            $input.val(tagList.join(','));
         };
+        //remove the last tag
+        var removeLast = function(){
+            tagList.pop();
+            $tagsInput.find('.xjb-tag-input-item:last').remove();
+            $input.val(tagList.join(','));
+        };
+        $tagsInput.click(function(){
+            $(this).find('.xjb-tags-input-add').focus();
+        });
+        if($input.val()!='') addList($input.val());
+        $input.css('display', 'none');
+        $tagsInput.append($tagsInputAdd);
+        $input.after($tagsInput);
         //keys binding
         $tagsInputAdd.on('keydown', function(e){
             var which = e.which || e.keyCode;
-            if(which === 13 || which === 9 || which === 32){
+            if(keyCodeReflect[which] && options.tagKeys.indexOf(keyCodeReflect[which])>=0){
                 var val =  $.trim($(this).val());
                 if(val!==''){
-                    obj.add(val);
+                    add(val);
                     $(this).val('');
                     $(this).focus();
                 }
                 return false;
+            }else if(options.keyDeletion && which === 8){
+                if($tagsInputAdd.val() === ''){
+                    removeLast();
+                }
             }
         });
-        $tagsInput.click(function(){
-            $(this).find('.tags-input-add').focus();
-        });
-        if($input.val()!='') obj.addList($input.val());
-        $input.css('display', 'none');
-        $tagsInput.append($tagsInputAdd);
-        $input.after($tagsInput);
-        return obj;
     };
 })(jQuery);

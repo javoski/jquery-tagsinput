@@ -3,8 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Tags Input  Plugin Demo</title>
+    <link rel="stylesheet" href="../jquery.tagsinput.css">
+    <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
-    <div class="container"></div>
+    <div class="container">
+        <div class="demo-item" id="demo-normal">
+            <h2 class="demo-title">Normal Usage</h2>
+            <input type="text" class="tags-input">
+        </div>
+        <div class="demo-item" id="demo-keybind">
+            <h2 class="demo-title">Tag Keys Binding</h2>
+            <input type="text" class="tags-input">
+        </div>
+        <div class="demo-item" id="demo-keydelete">
+            <h2 class="demo-title">key Deletion Enable</h2>
+            <input type="text" class="tags-input">
+        </div>
+        <div class="demo-item" id="demo-multiply">
+            <h2 class="demo-title">Multi Input</h2>
+            <input type="text" class="tags-input">
+            <input type="text" class="tags-input">
+            <input type="text" class="tags-input">
+            <input type="text" class="tags-input">
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="../jquery.tagsinput.js"></script>
+    <script>
+        $('#demo-normal .tags-input').tagsinput();
+        $('#demo-keybind .tags-input').tagsinput({
+            tagKeys: ['enter']
+        });
+        $('#demo-keydelete .tags-input').tagsinput({
+            keyDeletion: true
+        });
+        $('#demo-multiply .tags-input').tagsinput({
+            keyDeletion: true
+        });
+    </script>
 </body>
 </html>
