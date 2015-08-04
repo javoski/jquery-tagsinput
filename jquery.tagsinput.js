@@ -21,7 +21,8 @@
             $tagsInputAdd = $('<input type="text" class="xjb-tags-input-add">'),
             options = $.extend({
                 tagKeys: ['enter', 'tab', 'space'],
-                keyDeletion: false
+                keyDeletion: false,
+                separator: ','
             }, opts);
 
         //add tag by name
@@ -36,7 +37,7 @@
         };
         //add tags by string
         var addList = function(tagNames){
-            var list = tagNames.split(',');
+            var list = tagNames.split(options.separator);
             for(var i=0;i<list.length;i++){
                 add(list[i]);
             }
@@ -46,7 +47,7 @@
             var tag = $item.text();
             tagList.splice(tagList.indexOf(tag), 1);
             $item.remove();
-            $input.val(tagList.join(','));
+            $input.val(tagList.join(options.separator));
         };
         //remove the last tag
         var removeLast = function(){
