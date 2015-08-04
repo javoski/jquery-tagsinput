@@ -5,9 +5,11 @@
  */
 (function($) {
     $.fn.tagsinput = function(opts) {
-        return init(this, opts);
+        this.each(function(item){
+            init.call(item, opts);
+        });
     };
-    function init($input, opts) {
+    function init(input, opts) {
         var obj = {tagList:[]},
             $tagsInput = $('<div class="tags-input"></div>'),
             $tagsInputAdd = $('<input type="text" class="tags-input-add">'),
