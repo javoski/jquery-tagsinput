@@ -3,22 +3,17 @@ A jQuery plugin for tags input
 
 ## Usage
 html
-``` html
-<input type="text" id="tag-input">
+```html
+<input type="text" class="tags-input">
 ```
 javascript
-``` javascript
-$('#tag-input').tagsinput(options);
+```javascript
+$('.tags-input').tagsinput(options);
 ```
 
 ##Options
-* tagKeys:  
+* tagKeys:default:['enter', 'tab', 'space']
 
-A string array can contains "enter", "tab", "space";default:['enter', 'tab', 'space']
+* keyDeletion:default:false
 
-* keyDeletion:  
-
-Boolean type that means if can delete last tag by typing "backspace" key;default:false
-
-* separator:  
-Tags separator;default:','
+* separator:default:','
